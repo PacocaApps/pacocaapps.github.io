@@ -8,15 +8,21 @@
 </head>
 <body>
   <center>
+    <form name="myForm" action=""
+  onsubmit="goto();" method="post">
+ObjectName/Position: <input type="text" name="fname">
+  <br>
+  <input type="button" onclick="goto()" value="Go To" class="btn btn-primary my-2" >
+  </form>
 <!-- insert this snippet where you want Aladin Lite viewer to appear and after the loading of jQuery -->
-<div id="aladin-lite-div" style="width:400px;height:400px;"></div>
+<div id="aladin-lite-div" style="width:600px;height:600px;"></div>
 </center>
 <script type="text/javascript" src="//aladin.u-strasbg.fr/AladinLite/api/v2/latest/aladin.min.js" charset="utf-8"></script>
 <script type="text/javascript">
     var aladin = A.aladin('#aladin-lite-div', {survey: "P/DSS2/color", fov:60, showGotoControl:true,showShareControl:true,});
     function goto(){
-
-      aladin.gotoObject('Messier 1', {success: function(raDec) { alert(raDec);}, error: function() {alert("object no found")}})
+        var x = document.forms["myForm"]["fname"].value;
+      aladin.gotoObject(x, {success: function(raDec) { alert(raDec);}, error: function() {alert("object no found")}})
     }
 </script>
 </body>
