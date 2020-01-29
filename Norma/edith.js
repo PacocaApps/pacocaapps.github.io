@@ -106,9 +106,15 @@ else if(r.includes("mapa estelar")){
    window.open("https://www.visualcapitalist.com/wp-content/uploads/2019/07/star-map-full-res.html")
 
 }
-else if(r ==="order foxtrot"){
+else if(r.includes("coronavírus")){
+    voice.speak("Pronto")
+   window.open("https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6")
 
-    output.textContent = "Zeta Function"
+}
+else if(r.includes("corona")){
+    voice.speak("Pronto")
+
+    window.open("https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6")
 
 }
 else if(r ==="order sagittarius"){
