@@ -5,8 +5,9 @@
     <script src="edith.js"></script>
     <script src="p5.min.js"></script>
     <script src="speech.js"></script>
+    <script src="NormaCall.js"></script>
   </head>
-  <body onclick="voice.speak('Sim?');restart();">
+  <body onclick="voice.speak('Sim?');restart();start();">
  
     <center>
       <button onclick="voice.speak('Oi senhor');restart();"> Ligar  prt Norma</button>
@@ -21,54 +22,6 @@ No voice Input
   <p id="output"></p>
 </center>
     <script>
-    
-        const startBtn = document.querySelector('#start');
-        const input = document.querySelector('#input');
-       var voice;
-       var rec;
-
-
-
-       
-        function setup(){
-     noCanvas();
-     voice = new p5.Speech()
-     var continous = true;
-      var interim = true;
-        var onEnd = restart;
-        
-      rec = new p5.SpeechRec("pt-BR",receiveText,onEnd);
-      
-        
-  
-
-      rec.start(continous,interim,onEnd);
-   
-   }
-
-  function receiveText(){
-
-
-if(rec.resultString.includes("Norma")||rec.resultString.includes("norma"))
-{
-   
-  console.log(rec.resultString)
- dam(rec.resultString)
-}
-  }
-
-
-
-   function restart(){
-     console.log("rec ended")
-     var continous = true;
-      var interim = true;
-        var onEnd = restart;
-        
-    rec.start(continous,interim,onEnd);
-   }
-       
-  
 
     </script>
   </body>
