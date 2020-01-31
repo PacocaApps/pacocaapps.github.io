@@ -21,6 +21,9 @@ rec = new p5.SpeechRec("pt-BR",receiveText,onEnd);
 
 }
 function start(){
+    var continous = true;
+var interim = true;
+var onEnd = restart;
     rec.start(continous,interim,onEnd);
 
 
