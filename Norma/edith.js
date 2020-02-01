@@ -3,13 +3,13 @@
 // TEXT PROCESSING
 function dam(content){
   
-    const output = document.querySelector('#output');
-    const dataAnalysis = document.querySelector('#data');
+
+   
   
     
  
 
-    dataAnalysis.textContent = "Processing Data Entry"
+ 
 var r = content.toLowerCase() 
 console.log(r)
 var date = new Date();
@@ -32,11 +32,11 @@ console.log(minute2+""+hour2)
 var utcdate = date.getFullYear()+""+date.getMonth()+1+""+date.getDate()+""+hour2+""+minute2+""+19
 if(r.includes("alfa")){
      voice.speak("Acessando Rede Satcom")
-    output.textContent = "Reaching SatCom"
+
   
  
    if(r.includes("goes-16")){
-    output.textContent = "Getting Sat Imagery GOES-16"
+ 
  
     if(r.includes("rgb")){
 
@@ -53,7 +53,7 @@ if(r.includes("alfa")){
 
 
 }else if(r.includes("goes-17")){
-    output.textContent = "Getting Sat Imagery GOES-17"
+
 }
 
 
@@ -119,13 +119,13 @@ else if(r.includes("corona")){
 }
 else if(r ==="order sagittarius"){
 
-    output.textContent = "Eta Function"
+   
 
 }
 else if(r ==="order theta"){
 
 
-    output.textContent = "Theta Function"
+
 
 }else if(r === "shutdown"){
 console.log("System Shutting Down")

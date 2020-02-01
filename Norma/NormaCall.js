@@ -1,5 +1,4 @@
-const startBtn = document.querySelector('#start');
-const input = document.querySelector('#input');
+
 var voice;
 var rec;
 
