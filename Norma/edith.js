@@ -117,7 +117,7 @@ else if(r.includes("corona")){
     window.open("https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6")
 
 }
-else if(r ==="order sagittarius"){
+else if(r.includes("")){
 
    
 
