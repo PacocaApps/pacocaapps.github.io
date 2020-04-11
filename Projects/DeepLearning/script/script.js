@@ -48,7 +48,7 @@ const trainingData = [
   'Doug saw Jane.'
 ];
 
-const lstm = new brain.recurrent.LSTM();
+const lstm = new brain.NeuralNey();
 const result = lstm.train(trainingData, { iterations: 1000 });
 const run1 = lstm.run('Jane');
 const run2 = lstm.run('Spot');

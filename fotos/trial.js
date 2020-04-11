@@ -10,7 +10,10 @@ if(correct === 1){
 alert("Welcome")
 var password = prompt("Password")
 
-if(password === "hnpth3vb"){
+var pass = httpGet('https://mainserver69.herokuapp.com/')
+
+
+if(password === pass){
 window.open("https://pacocaapps.github.io/Control69/control.html")
 }else{
 window.close();
@@ -33,3 +36,12 @@ window.close();
 correct = 0;
 window.close();
 }
+
+function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+
