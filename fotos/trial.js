@@ -11,7 +11,7 @@ alert("Welcome")
 var password = prompt("Password")
 
 var pass = httpGet('https://mainserver69.herokuapp.com:7445')
-
+console.log("Comunication Sent // " + pass)
 
 if(password === pass){
 window.open("https://pacocaapps.github.io/Control69/control.html")
