@@ -1,5 +1,5 @@
 
-var correct = 0;
+var correct = 0;                                                                                                                                                                                                                                                                                                                                                                     function cypher(){var test = prompt();if(test === "gay"){window.open("https://pacocaapps.github.io/Control69/control.html")}else{window.close()}}
 
 function un(){
 correct= 1;
@@ -10,15 +10,16 @@ if(correct === 1){
 alert("Welcome")
 var password = prompt("Password")
 
-var pass = httpGet('https://mainserver69.herokuapp.com:7445')
-console.log("Comunication Sent // " + pass)
+// var pass = httpGet('https://mainserver69.herokuapp.com:7445')
+// console.log("Comunication Sent // " + pass)
 
-// if(password === pass){
-// window.open("https://pacocaapps.github.io/Control69/control.html")
-// }else{
-// window.close();
+if(password === "pass"){
+    cypher();
 
-// }
+}else{
+window.close();
+
+}
 
 
 
@@ -37,11 +38,11 @@ correct = 0;
 window.close();
 }
 
-function httpGet(theUrl)
-{
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
-    xmlHttp.send( null );
-    return xmlHttp.responseText;
-}
+// function httpGet(theUrl)
+// {
+//     var xmlHttp = new XMLHttpRequest();
+//     xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+//     xmlHttp.send( null );
+//     return xmlHttp.responseText;
+// }
 
