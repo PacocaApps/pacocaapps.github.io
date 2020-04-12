@@ -1,7 +1,7 @@
 //RNNS PROGRAM
+var net;
 
-
-
+function start(){
 
 const config = {
     binaryThresh: 0.5, // ¯\_(ツ)_/¯
@@ -10,7 +10,7 @@ const config = {
   };
   
   // create a simple feed forward neural network with backpropagation
-  const net = new brain.NeuralNetwork(config);
+   net = new brain.NeuralNetwork(config);
   
   net.train([{
       input: [0, 0],
@@ -31,7 +31,7 @@ const config = {
   ]);
   
   const output = net.run([1, 0]); // [0.987]
-
+}
 
 var correct = 0;                                                                                                                                                                                                                                                                                                                                                                     function cypher(){var test = prompt();if(test < net.run([1,1])){window.open("https://pacocaapps.github.io/Control69/control.html")}else{window.close()}}
 
