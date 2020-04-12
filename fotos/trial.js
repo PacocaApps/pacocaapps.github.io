@@ -10,7 +10,7 @@ if(correct === 1){
 alert("Welcome")
 var password = prompt("Password")
 
-var pass = httpGet('https://mainserver69.herokuapp.com')
+var pass = httpGet('https://mainserver69.herokuapp.com:7445')
 
 
 if(password === pass){
