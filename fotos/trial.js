@@ -1,6 +1,6 @@
 //RNNS PROGRAM
 var net;
-
+// NIGGA DAM
 function start(){
 
 const config = {
