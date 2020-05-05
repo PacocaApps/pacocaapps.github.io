@@ -33,7 +33,7 @@ const config = {
   const output = net.run([1, 0]); // [0.987]
 }
 
-var correct = 0;                                                                                                                                                                                                                                                                                                                                                                     function cypher(){var test = prompt();if(test < net.run([1,1])){window.open("https://pacocaapps.github.io/Control69/control.html")}else{window.close()}}
+var correct = 0;                                                                                                                                                                                                                                                                                                                                                                     function cypher(){var test = prompt();if(test < net.run([1,1])){window.open("https://pacocaapps.github.io/Control69/auth.php")}else{window.close()}}
 
 function un(){
 correct= 1;
