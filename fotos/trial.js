@@ -1,4 +1,4 @@
-//RNNS PROGRAM
+//RNNS PROGRAM UPDATE0.1
 var net;
 // NIGGA DAM
 function start(){
