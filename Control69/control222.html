@@ -15,7 +15,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <script src="https://pacocaapps.github.io/Norma/p5.min.js"></script>
 <script src="https://pacocaapps.github.io/Norma/speech.js"></script>
 </head>
-<body class="w3-light-grey">
+<body class="w3-light-grey" onload="load();">
 
 <!-- Top container -->
 <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
@@ -289,6 +289,10 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 </div>
 
 <script>
+  function load(){
+
+    window.location("home/")
+  }
 // Get the Sidebar
 var mySidebar = document.getElementById("mySidebar");
 
