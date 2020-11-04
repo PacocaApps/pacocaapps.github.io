@@ -1,5 +1,5 @@
 var pathname = location.pathname
-if (pathname.endsWith('/')) pathname += 'index.html'
+if (pathname.endsWith('')) pathname += 'index.html'
 
 async function readPage () {
   return beaker.hyperdrive.readFile(pathname).catch(e => '')
