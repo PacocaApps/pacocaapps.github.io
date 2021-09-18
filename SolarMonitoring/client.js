@@ -74,7 +74,7 @@ this.positionalarg = 1;
     OrbitalMechanics(){
        this.w = math.sqrt(Math.pow(this.a,3)/SunMassConstant)
 
-       this.x += this.positionalarg*this.w/1;
+       this.x += this.positionalarg*this.w/100;
 
         if(this.x>this.a/1){
              this.positionalarg = -1;
