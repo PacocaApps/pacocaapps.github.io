@@ -11,7 +11,7 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 renderer.physicallyCorrectLights = true;
-controls = new OrbitControls( camera, renderer.domElement );
+var controls = new OrbitControls( camera, renderer.domElement );
 
 camera.lookAt (new THREE.Vector3(0,0,0));
 
