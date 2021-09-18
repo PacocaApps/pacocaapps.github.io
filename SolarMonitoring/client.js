@@ -2,8 +2,6 @@
 import * as THREE from "https://threejs.org/build/three.module.js";
 import { OrbitControls } from "https://threejs.org/examples/jsm/controls/OrbitControls.js";
 
-var mesh, renderer, scene, camera, controls;
-
 
 
 const scene = new THREE.Scene();
