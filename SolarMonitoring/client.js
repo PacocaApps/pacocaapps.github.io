@@ -64,7 +64,7 @@ class OrbitalObject{
         this.sphereGeo = new THREE.SphereGeometry(this.sphereRadius, this.sphereWidthDivisions, this.sphereHeightDivisions);
         this.sphereMat = new THREE.MeshStandardMaterial({color: this.color});
         this.Mesh = new THREE.Mesh(this.sphereGeo, this.sphereMat);
-        this.Mesh.position.set(0, 2, 1);
+        this.Mesh.position.set(0, 2, 0);
         this.y = -this.b;
         this.x = -this.a;
 this.positionalarg = 1;
