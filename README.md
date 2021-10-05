@@ -10,4 +10,4 @@ Si vous lisez ceci,
 Bonne Journée, Bonne Soirée et une belle vie
 
 Si estas leyendo esto,
-tenga un buen dia, una buena noche y un increíble vida 
+tenga un buen dia, una buena noche y una increíble vida 
