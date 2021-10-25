@@ -11,18 +11,19 @@ async function init_tf() {
     
     console.log("LOADING BEAUTY TENSORFLOW MODEL");
     const LOCAL_MODEL_PATH = './models/beauty.json';
+    const DYNAMIOS = "https://pacocaapps.github.io/models/beauty.json"
     //const HOSTED_MODEL_PATH = './models/beauty.json';
     
     //let model;
     try {
-        model = await tf.loadLayersModel(LOCAL_MODEL_PATH);
+        model = await tf.loadLayersModel(DYNAMIOS);
         //window.model.summary();
         //beauty_detector_ready = true;
 		postMessage({'loaded':'beauty'});
         
         
     } catch (err) {
-        report("failed to load beauty scoring model");
+        report("failed to load beauty scoring model :"+err);
     }
 
 }
