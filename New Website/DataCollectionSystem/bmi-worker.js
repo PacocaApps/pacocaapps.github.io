@@ -62,7 +62,7 @@ async function init_tf() {
         model = await tf.loadLayersModel(dmencia);
 		postMessage({'loaded':'bmi'});
     } catch (err) {
-        console.log("failed to load bmi prediction model");
+        console.log("failed: "+err);
     }
 
 }
