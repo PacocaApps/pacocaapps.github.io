@@ -51,9 +51,9 @@ async function init_tf() {
     
     console.log("LOADING BMI TENSORFLOW MODEL");
     const LOCAL_MODEL_PATH = './models/bmi.json';
-    
+    const DYNAMIC_MODEL_PATH = "https://pacocaapps.github.io/models/bmi.json"
     try {
-        model = await tf.loadLayersModel(LOCAL_MODEL_PATH);
+        model = await tf.loadLayersModel(DYNAMIC_MODEL_PATH);
 		postMessage({'loaded':'bmi'});
     } catch (err) {
         console.log("failed to load bmi prediction model");
