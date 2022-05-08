@@ -98,7 +98,7 @@ canvas {
 
 
 
-				const atmospheremat = new THREE.MeshPhongMaterial( { color: 0xff0000, specular: 0x000900, shininess: 30, flatShading: true, opacity:1, transparent: false});
+				const atmospheremat = new THREE.MeshPhongMaterial( { color: 0xff0000, specular: 0xffffff, shininess: 2, flatShading: true, opacity:0.2	, transparent: true});
 				const planetarymat = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0x030303, shininess: 30, flatShading: true,map: planettext	});
 
 
@@ -112,14 +112,14 @@ canvas {
 				const radius = 50, segments = 400, rings = 300;
 
 				const geometry = new THREE.SphereGeometry( radius, segments, rings );
-				const atmrad = 52;
+				const atmrad = 51;
 				const atmgeo = new THREE.SphereGeometry( atmrad, segments, rings );
 
 				sphere = new THREE.Mesh( geometry, planetarymat );
 				atmsphere = new THREE.Mesh( atmgeo, atmospheremat );
 
 				scene.add( sphere );
-				scene.add( atmgeo );
+				scene.add( atmsphere );
 
 
 				renderer = new THREE.WebGLRenderer();
