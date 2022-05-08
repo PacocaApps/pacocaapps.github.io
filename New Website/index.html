@@ -20,7 +20,7 @@
     color: #FFFFFF;
 	top: 100px;
 	left: 100px;
-	opacity: 50%;
+	opacity: 80%;
     font-size: 26px;
     font-weight: bold;
     text-shadow: -1px -1px 1px #000, 1px 1px 1px #000;
@@ -36,6 +36,12 @@ canvas {
   top: 0;
   left: 0;
   z-index: -9999;
+}
+P:hover {
+  /* I need a slightly darker version of var(--color-highlight)
+     Imagine, for example, if that last value – the opacity – could be increase
+     i.e. something like this: */
+	 filter: brightness(0.6);
 }
 </style>
 
