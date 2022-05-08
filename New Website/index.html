@@ -71,13 +71,14 @@ canvas {
 			animate();
 
 			function init() {
+				
 
 				camera = new THREE.PerspectiveCamera( 30, window.innerWidth / window.innerHeight, 1, 10000 );
 				camera.position.z = 300;
 
 				scene = new THREE.Scene();
 				scene.background = new THREE.Color( 0x000000 );
-
+			
 			
 
 		
@@ -92,17 +93,19 @@ canvas {
 				const Nmat = new THREE.MeshDepthMaterial();
 				
 				const textureLoader = new THREE.TextureLoader();
-
-				const planettext =  textureLoader.load( '4k_venus_atmosphere.jpg' );
-
-
-
-
-				const atmospheremat = new THREE.MeshPhongMaterial( { color: 0xff0000, specular: 0xffffff, shininess: 2, flatShading: true, opacity:0.2	, transparent: true});
-				const planetarymat = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0x030303, shininess: 30, flatShading: true,map: planettext	});
+				//Planetary selection
+				var n = Math.ceil(Math.random()*3)
+			
+				var planettext;
 
 
-				const directionalLight = new THREE.DirectionalLight( 0xffffff	, 1 );
+
+
+				var atmospheremat;
+			
+
+
+				const directionalLight = new THREE.DirectionalLight( 0xffffff	, 2 );
 				directionalLight.position.x = Math.random() - 0.5;
 				directionalLight.position.y = Math.random() - 0.5;
 				directionalLight.position.z = Math.random() - 0.5;
@@ -112,9 +115,36 @@ canvas {
 				const radius = 50, segments = 400, rings = 300;
 
 				const geometry = new THREE.SphereGeometry( radius, segments, rings );
-				const atmrad = 51;
-				const atmgeo = new THREE.SphereGeometry( atmrad, segments, rings );
+				var atmrad = 51;
+				
 
+
+				switch(n){
+					case 0: 
+					const atmmap = textureLoader.load('planetTextures/8k_earth_clouds.jpg');
+					planettext =  textureLoader.load( 'planetTextures/8k_earth_daymap.jpg' );
+					atmospheremat = new THREE.MeshPhongMaterial( { color: 0xffffff, specular: 0xaaaaff, shininess: 1, flatShading: true, opacity:0.4	, transparent: true,map: atmmap});
+					atmrad = 50.1;
+
+						break;
+					case 1:
+					planettext =  textureLoader.load( 'planetTextures/8k_moon.jpg' );
+					atmospheremat = new THREE.MeshPhongMaterial( { color: 0xffffff, specular: 0xffffff, shininess: 2, flatShading: true, opacity:0.0	, transparent: true});
+					atmrad = 51;
+						break;
+					case 2:
+					planettext =  textureLoader.load( 'planetTextures/8k_mars.jpg' );
+					atmospheremat = new THREE.MeshPhongMaterial( { color: 0xaa0000, specular: 0xaa0000, shininess: 2, flatShading: true, opacity:0.2	, transparent: true});
+					atmrad = 50.05;
+						break;
+					default:
+					planettext =  textureLoader.load( 'planetTextures/4k_venus_atmosphere.jpg' );
+					atmospheremat = new THREE.MeshPhongMaterial( { color: 0xffffff, specular: 0xffffff, shininess: 2, flatShading: true, opacity:0.2	, transparent: true});
+					atmrad = 51;
+						
+				} 
+				const atmgeo = new THREE.SphereGeometry( atmrad, segments, rings );
+				const planetarymat = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0x030303, shininess: 30, flatShading: true,map: planettext	});
 				sphere = new THREE.Mesh( geometry, planetarymat );
 				atmsphere = new THREE.Mesh( atmgeo, atmospheremat );
 
@@ -157,7 +187,7 @@ canvas {
 				const time = Date.now() * 0.01;
 
 				sphere.rotation.y = sphere.rotation.z = 0.01 * time;
-
+				atmsphere.rotation.y = atmsphere.rotation.z = 0.01*time;
 				renderer.render( scene, camera );
 
 			}
