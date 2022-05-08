@@ -13,15 +13,43 @@
     margin: 0 !important;
     padding: 0 !important;
 }
+
+
+.content{
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: #FFFFFF;
+	top: 100px;
+	left: 100px;
+	opacity: 50%;
+    font-size: 26px;
+    font-weight: bold;
+    text-shadow: -1px -1px 1px #000, 1px 1px 1px #000;
+    position: relative;
+    z-index: 10000;
+}
+
+
+canvas {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -9999;
+}
 </style>
 
 </head>
 
 	<body>
+<div class="content">
+	<h1 >PAÇOCA APPS</h1>
+    <p>Demo paçoca apps website with love!<br> i miss so much and so many,<br> here i am alone between the heavens and the ambers</p>
+</div>
 		<div id="container"></div>
-		<div id="info">
-			<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - cube panorama demo
-		</div>
+
+
+	</div>
     <script type="x-shader/x-vertex" id="vertexshader">
 
 			uniform float amplitude;
@@ -69,6 +97,8 @@
 
 		<script>
 
+		
+
 			// import * as THREE from '../build/three.module.js';
 
 			// import Stats from './jsm/libs/stats.module.js';
@@ -100,6 +130,16 @@
 
 				uniforms[ "colorTexture" ].value.wrapS = uniforms[ "colorTexture" ].value.wrapT = THREE.RepeatWrapping;
 
+
+
+				const material = new THREE.LineBasicMaterial( { 
+					color: 0xffffff,
+					linewidth: 100,
+					linecap: 'round', //ignored by WebGLRenderer
+					linejoin:  'round' //ignored by WebGLRenderer
+				 } );
+
+				const Nmat = new THREE.MeshDepthMaterial();
 				const shaderMaterial = new THREE.ShaderMaterial( {
 
 					uniforms: uniforms,
@@ -107,9 +147,17 @@
 					fragmentShader: document.getElementById( 'fragmentshader' ).textContent
 
 				} );
+				const thirdmat = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0x000900, shininess: 30, flatShading: true});
+				
 
+				const directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
+				directionalLight.position.x = Math.random() - 0.5;
+				directionalLight.position.y = Math.random() - 0.5;
+				directionalLight.position.z = Math.random() - 0.5;
+				directionalLight.position.normalize();
+				scene.add( directionalLight );
 
-				const radius = 50, segments = 128, rings = 64;
+				const radius = 50, segments = 256, rings = 64;
 
 				const geometry = new THREE.SphereGeometry( radius, segments, rings );
 
@@ -124,7 +172,7 @@
 
 				geometry.setAttribute( 'displacement', new THREE.BufferAttribute( displacement, 1 ) );
 
-				sphere = new THREE.Mesh( geometry, shaderMaterial );
+				sphere = new THREE.Mesh( geometry, thirdmat );
 				scene.add( sphere );
 
 				renderer = new THREE.WebGLRenderer();
@@ -188,6 +236,9 @@
 			}
 	
 
+ 
+
+ 
  </script>
 	</body>
 </html>
