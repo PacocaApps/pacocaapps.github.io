@@ -118,7 +118,7 @@ canvas {
 				camera.position.z = 300;
 
 				scene = new THREE.Scene();
-				scene.background = new THREE.Color( 0x050505 );
+				scene.background = new THREE.Color( 0x000000 );
 
 				uniforms = {
 
@@ -147,8 +147,16 @@ canvas {
 					fragmentShader: document.getElementById( 'fragmentshader' ).textContent
 
 				} );
+				const textureLoader = new THREE.TextureLoader();
+
+				const planettext =  textureLoader.load( 'sun_temple_stripe.jpg' );
+
+
+
+
 				const thirdmat = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0x000900, shininess: 30, flatShading: true});
-				
+				const planetarymat = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0x000900, shininess: 30, flatShading: true, map: planettext});
+
 
 				const directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
 				directionalLight.position.x = Math.random() - 0.5;
