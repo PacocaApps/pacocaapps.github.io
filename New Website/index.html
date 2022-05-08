@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>three.js webgl - panorama</title>
+		<title>Paçoca Apps</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-		<link type="text/css" rel="stylesheet" href="main.css">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
+<!-- <script src="./jsmodules/3dthree/examples/jsm/postprocessing/EffectComposer.js" type="module"></script> -->
 <style>
   html, body {
     margin: 0 !important;
@@ -56,7 +55,7 @@ P:hover {
 	<br>
 	<p>Special Relativity Graph Sim</p>
 	<br>
-	<p>Newtonian Gravitation Sim 2D </p>
+	<p>1D Time dependent Schrödinger Solver </p>
 	<br>
 	<p>Newtonian Gravitation Sim 2D </p>
 <br>
@@ -90,22 +89,42 @@ P:hover {
 
 
 
+	<script type="importmap">
+		{
+			"imports": {
+				"three": "./jsmodules/3dthree/build/three.module.js"
+			}
+		}
+	</script>
 
 
 
 
-
-		<script>
+		<script type="module">
 
 		
+import * as THREE from 'three';
 
+			
+
+
+			import { EffectComposer } from './jsmodules/3dthree/examples/jsm/postprocessing/EffectComposer.js';
+			import { RenderPass } from './jsmodules/3dthree/examples/jsm/postprocessing/RenderPass.js';
+			import { ShaderPass } from './jsmodules/3dthree/examples/jsm/postprocessing/ShaderPass.js';
+			import { PixelShader } from './jsmodules/3dthree/examples/jsm/shaders/PixelShader.js';
+
+			import { RGBShiftShader } from './jsmodules/3dthree/examples/jsm/shaders/RGBShiftShader.js';
+			import { DotScreenShader } from './jsmodules/3dthree/examples/jsm/shaders/DotScreenShader.js';
 			// import * as THREE from '../build/three.module.js';
 
 			// import Stats from './jsm/libs/stats.module.js';
+			let pixelPass, params;
+			let composer;
 
 			let renderer, scene, camera, stats;
 
 			let sphere, uniforms;
+			let atmsphere;
 
 			let displacement, noise;
 
@@ -114,6 +133,14 @@ P:hover {
 
 			function init() {
 				
+				
+
+				params = {
+					pixelSize: 60,
+					postprocessing: true
+				};
+
+
 
 				camera = new THREE.PerspectiveCamera( 30, window.innerWidth / window.innerHeight, 1, 10000 );
 				camera.position.z = 300;
@@ -187,22 +214,52 @@ P:hover {
 				} 
 				const atmgeo = new THREE.SphereGeometry( atmrad, segments, rings );
 				const planetarymat = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0x030303, shininess: 30, flatShading: true,map: planettext	});
-				sphere = new THREE.Mesh( geometry, planetarymat );
-				atmsphere = new THREE.Mesh( atmgeo, atmospheremat );
+				
+				
+				
+				 sphere = new THREE.Mesh( geometry, planetarymat );
+				 atmsphere = new THREE.Mesh( atmgeo, atmospheremat );
 
 				scene.add( sphere );
 				scene.add( atmsphere );
+				
+			
+
+				// pixelPass = new ShaderPass( PixelShader );
+				// pixelPass.uniforms[ 'resolution' ].value = new THREE.Vector2( window.innerWidth, window.innerHeight );
+				// pixelPass.uniforms[ 'resolution' ].value.multiplyScalar( window.devicePixelRatio );
+
 
 
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
 
+
+				composer = new EffectComposer( renderer );
+				composer.addPass( new RenderPass( scene, camera ) );
+
+				
+				const effect1 = new ShaderPass( DotScreenShader );
+				effect1.uniforms[ 'scale' ].value = 4;
+				composer.addPass( effect1 );
+
+				const effect2 = new ShaderPass( RGBShiftShader );
+				effect2.uniforms[ 'amount' ].value = 0.0015;
+				composer.addPass( effect2 );
+
+			
+
+				// composer.addPass( pixelPass );
+
+
 				const container = document.getElementById( 'container' );
 				container.appendChild( renderer.domElement );
 
 			
 				window.addEventListener( 'resize', onWindowResize );
+
+
 
 			}
 
@@ -212,12 +269,17 @@ P:hover {
 				camera.updateProjectionMatrix();
 
 				renderer.setSize( window.innerWidth, window.innerHeight );
+				composer.setSize( window.innerWidth, window.innerHeight );
+
+				// pixelPass.uniforms[ 'resolution' ].value.set( window.innerWidth, window.innerHeight ).multiplyScalar( window.devicePixelRatio );
 
 			}
 
 			function animate() {
+				// pixelPass.uniforms[ 'pixelSize' ].value = 100;
 
 				requestAnimationFrame( animate );
+				composer.render();
 
 				render();
 				// stats.update();
@@ -228,8 +290,8 @@ P:hover {
 
 				const time = Date.now() * 0.01;
 
-				sphere.rotation.y = sphere.rotation.z = 0.01 * time;
-				atmsphere.rotation.y = atmsphere.rotation.z = 0.01*time;
+				sphere.rotation.y= 0.01 * time;
+				atmsphere.rotation.y = 0.01*time;
 				renderer.render( scene, camera );
 
 			}
