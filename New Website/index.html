@@ -213,7 +213,7 @@ import * as THREE from 'three';
 						
 				} 
 				const atmgeo = new THREE.SphereGeometry( atmrad, segments, rings );
-				const planetarymat = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0x030303, shininess: 30, flatShading: true,map: planettext	});
+				const planetarymat = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0x030303, shininess: 30, flatShading: true,map: planettext , bumpMap: planettext, bumpScale: 0.6	});
 				
 				
 				
@@ -231,24 +231,31 @@ import * as THREE from 'three';
 
 
 
-				renderer = new THREE.WebGLRenderer();
+				renderer = new THREE.WebGLRenderer({antialias: true});
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
 
-
-				composer = new EffectComposer( renderer );
-				composer.addPass( new RenderPass( scene, camera ) );
-
-				
 				const effect1 = new ShaderPass( DotScreenShader );
 				effect1.uniforms[ 'scale' ].value = 4;
-				composer.addPass( effect1 );
 
 				const effect2 = new ShaderPass( RGBShiftShader );
 				effect2.uniforms[ 'amount' ].value = 0.0015;
+
+
+				composer = new EffectComposer( renderer );
+
+
+				composer.addPass( new RenderPass( scene, camera ) );
+		
+				
+				
+				composer.addPass( effect1 );
+
+		
 				composer.addPass( effect2 );
 
 			
+
 
 				// composer.addPass( pixelPass );
 
@@ -282,7 +289,7 @@ import * as THREE from 'three';
 				composer.render();
 
 				render();
-				// stats.update();
+				stats.update();
 
 			}
 
@@ -292,8 +299,9 @@ import * as THREE from 'three';
 
 				sphere.rotation.y= 0.01 * time;
 				atmsphere.rotation.y = 0.01*time;
-				renderer.render( scene, camera );
-
+				renderer.clear();
+  composer.render();
+  renderer.render(scene, camera);
 			}
 	
 
