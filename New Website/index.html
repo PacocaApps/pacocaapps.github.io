@@ -43,57 +43,15 @@ canvas {
 
 	<body>
 <div class="content">
-	<h1 >PAÇOCA APPS</h1>
-    <p>Demo paçoca apps website with love!<br> i miss so much and so many,<br> here i am alone between the heavens and the ambers</p>
+	<h1 >PAÇOCA APPS </h1>
+    <p>Mama minha rola<br> seu zé buceta<br> corno</p>
 </div>
 		<div id="container"></div>
 
 
 	</div>
-    <script type="x-shader/x-vertex" id="vertexshader">
+  
 
-			uniform float amplitude;
-
-			attribute float displacement;
-
-			varying vec3 vNormal;
-			varying vec2 vUv;
-
-			void main() {
-
-				vNormal = normal;
-				vUv = ( 0.5 + amplitude ) * uv + vec2( amplitude );
-
-				vec3 newPosition = position + amplitude * normal * vec3( displacement );
-				gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );
-
-			}
-
-		</script>
-
-		<script type="x-shader/x-fragment" id="fragmentshader">
-
-			varying vec3 vNormal;
-			varying vec2 vUv;
-
-			uniform vec3 color;
-			uniform sampler2D colorTexture;
-
-			void main() {
-
-				vec3 light = vec3( 0.5, 0.2, 1.0 );
-				light = normalize( light );
-
-				float dProd = dot( vNormal, light ) * 0.5 + 0.5;
-
-				vec4 tcolor = texture2D( colorTexture, vUv );
-				vec4 gray = vec4( vec3( tcolor.r * 0.3 + tcolor.g * 0.59 + tcolor.b * 0.11 ), 1.0 );
-
-				gl_FragColor = gray * vec4( vec3( dProd ) * vec3( color ), 1.0 );
-
-			}
-
-		</script>
 
 		<script>
 
@@ -120,17 +78,9 @@ canvas {
 				scene = new THREE.Scene();
 				scene.background = new THREE.Color( 0x000000 );
 
-				uniforms = {
+			
 
-					"amplitude": { value: 1.0 },
-					"color": { value: new THREE.Color( 0xff2200 ) },
-					"colorTexture": { value: new THREE.TextureLoader().load( "sun_temple_stripe.jpg" ) }
-
-				};
-
-				uniforms[ "colorTexture" ].value.wrapS = uniforms[ "colorTexture" ].value.wrapT = THREE.RepeatWrapping;
-
-
+		
 
 				const material = new THREE.LineBasicMaterial( { 
 					color: 0xffffff,
@@ -140,48 +90,37 @@ canvas {
 				 } );
 
 				const Nmat = new THREE.MeshDepthMaterial();
-				const shaderMaterial = new THREE.ShaderMaterial( {
-
-					uniforms: uniforms,
-					vertexShader: document.getElementById( 'vertexshader' ).textContent,
-					fragmentShader: document.getElementById( 'fragmentshader' ).textContent
-
-				} );
+				
 				const textureLoader = new THREE.TextureLoader();
 
-				const planettext =  textureLoader.load( 'sun_temple_stripe.jpg' );
+				const planettext =  textureLoader.load( '4k_venus_atmosphere.jpg' );
 
 
 
 
-				const thirdmat = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0x000900, shininess: 30, flatShading: true});
-				const planetarymat = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0x000900, shininess: 30, flatShading: true, map: planettext});
+				const atmospheremat = new THREE.MeshPhongMaterial( { color: 0xff0000, specular: 0x000900, shininess: 30, flatShading: true, opacity:1, transparent: false});
+				const planetarymat = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0x030303, shininess: 30, flatShading: true,map: planettext	});
 
 
-				const directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
+				const directionalLight = new THREE.DirectionalLight( 0xffffff	, 1 );
 				directionalLight.position.x = Math.random() - 0.5;
 				directionalLight.position.y = Math.random() - 0.5;
 				directionalLight.position.z = Math.random() - 0.5;
 				directionalLight.position.normalize();
 				scene.add( directionalLight );
 
-				const radius = 50, segments = 256, rings = 64;
+				const radius = 50, segments = 400, rings = 300;
 
 				const geometry = new THREE.SphereGeometry( radius, segments, rings );
+				const atmrad = 52;
+				const atmgeo = new THREE.SphereGeometry( atmrad, segments, rings );
 
-				displacement = new Float32Array( geometry.attributes.position.count );
-				noise = new Float32Array( geometry.attributes.position.count );
+				sphere = new THREE.Mesh( geometry, planetarymat );
+				atmsphere = new THREE.Mesh( atmgeo, atmospheremat );
 
-				for ( let i = 0; i < displacement.length; i ++ ) {
-
-					noise[ i ] = Math.random() * 5;
-
-				}
-
-				geometry.setAttribute( 'displacement', new THREE.BufferAttribute( displacement, 1 ) );
-
-				sphere = new THREE.Mesh( geometry, thirdmat );
 				scene.add( sphere );
+				scene.add( atmgeo );
+
 
 				renderer = new THREE.WebGLRenderer();
 				renderer.setPixelRatio( window.devicePixelRatio );
@@ -190,11 +129,7 @@ canvas {
 				const container = document.getElementById( 'container' );
 				container.appendChild( renderer.domElement );
 
-				// stats = new Stats();
-				// container.appendChild( stats.dom );
-
-				//
-
+			
 				window.addEventListener( 'resize', onWindowResize );
 
 			}
@@ -222,22 +157,6 @@ canvas {
 				const time = Date.now() * 0.01;
 
 				sphere.rotation.y = sphere.rotation.z = 0.01 * time;
-
-				uniforms[ "amplitude" ].value = 2.5 * Math.sin( sphere.rotation.y * 0.125 );
-				uniforms[ "color" ].value.offsetHSL( 0.0005, 0, 0 );
-
-				for ( let i = 0; i < displacement.length; i ++ ) {
-
-					displacement[ i ] = Math.sin( 0.1 * i + time );
-
-					noise[ i ] += 0.5 * ( 0.5 - Math.random() );
-					noise[ i ] = THREE.MathUtils.clamp( noise[ i ], - 5, 5 );
-
-					displacement[ i ] += noise[ i ];
-
-				}
-
-				sphere.geometry.attributes.displacement.needsUpdate = true;
 
 				renderer.render( scene, camera );
 
