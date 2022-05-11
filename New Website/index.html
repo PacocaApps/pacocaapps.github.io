@@ -16,7 +16,7 @@
 .content{
 	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: #FFFFFF;
-	top: 100px;
+	top: 2.6vw;
 	left: 2.6vw;
 	opacity: 80%;
     font-size: 26px;
@@ -31,12 +31,20 @@ p{
 
 
 canvas {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   position: absolute;
   top: 0;
   left: 0;
   z-index: -9999;
+}
+
+#c {
+    width: 100vw;
+    height: 100vh;
+    display: block;
+    background: url(planetTextures/8k_stars.jpg) no-repeat center center;
+    background-size: cover;
 }
 P:hover {
   /* I need a slightly darker version of var(--color-highlight)
@@ -71,7 +79,7 @@ P:hover {
 	</div>
   
 
-
+<canvas id="c"></canvas>
 
 
 
@@ -138,16 +146,14 @@ import * as THREE from 'three';
 
 			function init() {
 				
-				
-
+				const canvas = document.querySelector('#c');
 				
 
 				camera = new THREE.PerspectiveCamera( 30, window.innerWidth / window.innerHeight, 1, 10000 );
 				camera.position.z = 300;
 
 				scene = new THREE.Scene();
-				scene.background = new THREE.Color( 0x000000 );
-			
+				scene.background = null;
 			
 
 		
@@ -163,7 +169,7 @@ import * as THREE from 'three';
 				
 				const textureLoader = new THREE.TextureLoader();
 				//Planetary selection
-				var n = Math.ceil(Math.random()*4)
+				var n = Math.ceil(Math.random()*7)
 			
 				var planettext;
 
@@ -186,7 +192,7 @@ import * as THREE from 'three';
 				const geometry = new THREE.SphereGeometry( radius, segments, rings );
 				var atmrad = 51;
 				
-
+ var bumpness = 0.6;
 
 				switch(n){
 					case 0: 
@@ -213,6 +219,34 @@ import * as THREE from 'three';
 
 
 							break;
+							case 4:
+						planettext =  textureLoader.load( 'planetTextures/8k_saturn.jpg' );
+					atmospheremat = new THREE.MeshPhongMaterial( { color: 0x111155, specular: 0x00000, shininess: 2, flatShading: true, opacity:0.3	, transparent: true});
+					atmrad = 50.6;
+
+
+							break;
+							case 5:
+						planettext =  textureLoader.load( 'planetTextures/2k_uranus.jpg' );
+					atmospheremat = new THREE.MeshPhongMaterial( { color: 0x111155, specular: 0x00000, shininess: 2, flatShading: true, opacity:0.3	, transparent: true});
+					atmrad = 50.6;
+
+
+							break;
+							case 6:
+						planettext =  textureLoader.load( 'planetTextures/2k_neptune.jpg' );
+					atmospheremat = new THREE.MeshPhongMaterial( { color: 0x111155, specular: 0x00000, shininess: 2, flatShading: true, opacity:0.3	, transparent: true});
+					atmrad = 50.6;
+
+
+							break;
+							case 7:
+						planettext =  textureLoader.load( 'planetTextures/4k_ceres_fictional.jpg' );
+					atmospheremat = new THREE.MeshPhongMaterial( { color: 0x111122, specular: 0x00000, shininess: 2, flatShading: true, opacity:0.3	, transparent: true});
+					atmrad = 50.6;
+							bumpness = 1;
+
+							break;
 					default:
 					planettext =  textureLoader.load( 'planetTextures/4k_venus_atmosphere.jpg' );
 					atmospheremat = new THREE.MeshPhongMaterial( { color: 0xffffff, specular: 0xffffff, shininess: 2, flatShading: true, opacity:0.2	, transparent: true});
@@ -220,7 +254,7 @@ import * as THREE from 'three';
 						
 				} 
 				const atmgeo = new THREE.SphereGeometry( atmrad, segments, rings );
-				const planetarymat = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0x030303, shininess: 30, flatShading: true,map: planettext , bumpMap: planettext, bumpScale: 0.6	});
+				const planetarymat = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0x030303, shininess: 30, flatShading: true,map: planettext , bumpMap: planettext, bumpScale: bumpness	});
 				
 				
 				
@@ -238,9 +272,14 @@ import * as THREE from 'three';
 
 
 
-				renderer = new THREE.WebGLRenderer({antialias: true});
+				renderer = new THREE.WebGLRenderer({  	 
+				canvas,
+			    alpha: true,
+				antialias:true
+				});
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.setClearColor( 0x000000, 0 );
 
 				
 				effect = new AsciiEffect( renderer, ' .:-+*=%@#', { invert: true } );
