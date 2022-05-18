@@ -31,8 +31,8 @@ p{
 
 
 canvas {
-  width: 100%;
-  height: 100%;
+	width: 100vw;
+    height: 100vh;
   position: absolute;
   top: 0;
   left: 0;
@@ -308,7 +308,7 @@ import * as THREE from 'three';
 				camera.aspect = window.innerWidth / window.innerHeight;
 				camera.updateProjectionMatrix();
 
-				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.setSize( window.innerWidth+ 100000, window.innerHeight );
 				effect.setSize( window.innerWidth, window.innerHeight );
 
 				// pixelPass.uniforms[ 'resolution' ].value.set( window.innerWidth, window.innerHeight ).multiplyScalar( window.devicePixelRatio );
