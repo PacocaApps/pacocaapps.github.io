@@ -21,7 +21,7 @@ function draw() {
 
 	fill(0, 0, 0);
 	textSize(32);
-text("Observer Velocity: "+velocity+"m/s", -500, -800);
+text("Observer 'Aceleration': "+velocity+"m/s^2", -500, -800);
 	
 	// rotation is done here. all subsequent drawing
 	// is done post-rotation
