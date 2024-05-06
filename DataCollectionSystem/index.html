@@ -1,0 +1,46 @@
+<html>
+    <head>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+        <script src="js/faceapi.min.js"></script>
+    </head><body>
+        <script>
+         $(document).ready(function() {
+  run()
+})
+
+
+const mtcnnForwardParams = {
+  // limiting the search space to larger faces for webcam detection
+  minFaceSize: 200
+}
+
+    
+async function run() {
+  // load the models
+  await faceapi.loadMtcnnModel('./models')
+  await faceapi.loadFaceRecognitionModel('./models')
+  const mtcnnResults =  await faceapi.mtcnn(document.getElementById('inputVideo'), mtcnnForwardParams)
+
+  // try to access users webcam and stream the images
+  // to the video element
+  const videoEl = document.getElementById('inputVideo')
+  navigator.getUserMedia(
+    { video: {} },
+    stream => videoEl.srcObject = stream,
+    err => console.error(err)
+  )
+
+  
+faceapi.drawDetection('overlay', mtcnnResults.map(res => res.faceDetection), { withScore: false })
+faceapi.drawLandmarks('overlay', mtcnnResults.map(res => res.faceLandmarks), { lineWidth: 4, color: 'red' })
+}
+        </script>
+sssss
+<div style="position: relative" class="margin">
+    <video onplay="onPlay(this)" id="inputVideo" autoplay muted></video>
+    <canvas id="overlay"/>
+  </div>
+    </body>
+</html>
